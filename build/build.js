@@ -11,6 +11,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var entries = utils.entries
 var pageArray
 
+var useSourceMap = true
+webpackConfig.devtool = useSourceMap ? 'source-map' : false
+
 // 取掉前两个参数，分别为node和build
 process.argv.splice(0, 2)
 
@@ -51,6 +54,9 @@ pageArray.forEach(function (val, index, array) {
         inject: true,
         // 每个html引用的js模块，也可以在这里加上vendor等公用模块
         // chunks: [name]
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        sourceMap: useSourceMap
       })
     ];
     // 开启打包

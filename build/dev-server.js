@@ -42,13 +42,14 @@ Object.keys(entries).forEach(function (name) {
 })
 
 webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
+webpackConfig.devtool = 'eval-cheap-module-source-map'
 
 // webpack编译器
 var compiler = webpack(webpackConfig)
 
 // webpack-dev-server中间件
 app.use(WebpackDevMiddleware(compiler, {
-    publicPath: '/',
+    publicPath: 'http://localhost:8080/',
     stats: {
         colors: true,
         chunks: false
