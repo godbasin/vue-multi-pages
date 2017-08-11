@@ -18,6 +18,7 @@ var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true'
 
 // 重置入口entry
 webpackConfig.entry = {}
+webpackConfig.plugins = webpackConfig.plugins || []
 // 设置output为每个页面[name].js
 webpackConfig.output.filename = '[name].js'
 webpackConfig.output.path = path.join(__dirname, 'dist')

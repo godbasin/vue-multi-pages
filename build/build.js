@@ -27,7 +27,7 @@ if (process.argv.length) {
 }
 
 // 开始输出loading状态
-var spinner = ora('building for production...\n')
+var spinner = ora('building for production...')
 spinner.start()
 
 pageArray.forEach(function (val, index, array) {
@@ -35,6 +35,10 @@ pageArray.forEach(function (val, index, array) {
     if (err) throw err
     // print pageName[]
     console.log(index + ': ' + val);
+    webpackConfig.output = Object.assign({}, webpackConfig.output)
+    webpackConfig.output.path = path.join(__dirname, '..', 'dist', val)
+    // 需要将资源发到cdn或某些位置
+    // webpackConfig.output.publicPath = '//your/public/path/' + val + '/'
     // 输出目录dist/pageName
     webpackConfig.output.path = path.join(__dirname, '..', 'dist', val);
     // 入口文件设定为指定页面的入口文件
@@ -75,7 +79,7 @@ pageArray.forEach(function (val, index, array) {
         chunkModules: false
       }) + '\n\n')
 
-      console.log(chalk.cyan('  Build complete.\n'))
+      console.log(chalk.cyan('  Build complete: ' + val + '\n'))
       console.log(chalk.yellow(
         '  Tip: built files are meant to be served over an HTTP server.\n' +
         '  Opening index.html over file:// won\'t work.\n'

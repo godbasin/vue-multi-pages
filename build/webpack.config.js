@@ -26,7 +26,7 @@ var webpackConfig = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: path.resolve(__dirname, 'img/[name].[hash:7].[ext]')
+          name: 'img/[name].[hash:7].[ext]'
         }
       },
       {
@@ -34,7 +34,7 @@ var webpackConfig = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: path.resolve(__dirname, 'fonts/[name].[hash:7].[ext]')
+          name: 'fonts/[name].[hash:7].[ext]'
         }
       }
     ]
