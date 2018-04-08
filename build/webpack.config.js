@@ -1,4 +1,11 @@
+var webpack = require('webpack')
 var path = require('path')
+var vueLoaderConfig = require('./vue-loader.conf')
+var utils = require('./utils')
+
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 var webpackConfig = {
   entry: {},
@@ -13,20 +20,29 @@ var webpackConfig = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: vueLoaderConfig
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader'
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [resolve('src')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'img/[name].[hash:7].[ext]'
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('media/[name].[hash:7].[ext]')
         }
       },
       {
@@ -34,12 +50,17 @@ var webpackConfig = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'fonts/[name].[hash:7].[ext]'
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
     ]
   },
-  plugins: []
+  plugins: [
+    // new webpack.ProvidePlugin({
+    //   $: "jquery",
+    //   jQuery: "jquery"
+    // })
+  ]
 }
 
 module.exports = webpackConfig;
